@@ -14,6 +14,11 @@
 private static String msj = "No Players Alive";
 private static bool checkLast;
 private static bool checkPlayer; 
+
+public void OnStartup(){
+	Game.RunCommand("/MSG XHomie-CustomServerMap: On");
+	Game.SetMapType(MapType.Custom);
+	checkLast = false;
 	if(AddT_Trigger(0,0,"CheckPlayerAlive","XH-404",true))
 		checkPlayer = true;
 }
