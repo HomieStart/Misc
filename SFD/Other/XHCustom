@@ -1,8 +1,8 @@
 	/*
 	<====================================================================> 
-	<======================= XHOMIE Code ================================> 
+	<====================== XHOMIE Code =================================> 
 	<====================================================================>
-	<=======    If you liked this v0.1, you can contact me,       =======>
+	<======= If you liked this v0.1, you can contact me, =======>
 	<=======      I will be delighted to attend thanks to         =======>
 	<=======       suggestions or ideas for new script :)         =======>
 	<====================================================================>
@@ -16,15 +16,15 @@ private static bool checkLast;
 private static bool checkPlayer;
 
 public void OnStartup(){
-	Game.RunCommand("XHomie-CustomServerMap: On");
+	Game.RunCommand("/MSG XHomie-CustomServerMap: On");
 	Game.SetMapType(MapType.Custom);
 	checkLast = false;
 	if(AddT_Trigger(0,0,"CheckPlayerAlive","XH-404",true))
 		checkPlayer = true;
 }
 
-private void CheckPlayerAlive(){
-	if(!Game.IsGameOver){
+public void CheckPlayerAlive(TriggerArgs args){
+	if(!Game.IsGameOver && Game.GetPlayers() != null){
 		if(Game.GetPlayers().Length <= 0){
 			Game.SetGameOver(msj);
 		}
@@ -33,11 +33,12 @@ private void CheckPlayerAlive(){
 			if(pl[0].IsBot)
 				Game.SetGameOver(msj);
 			checkLast = true;
-		}}
+		}
+	}
 	else
 			if(checkPlayer){
-				 Game.GetSingleObjectByCustomID("XH-3002").Remove();
 				 checkPlayer = false;
+				 Game.GetSingleObjectByCustomID("XH-404").Remove();
 			}
 }
 
@@ -51,8 +52,3 @@ private bool AddT_Trigger(int interval, int count, String function, String id, b
 				return	timerTrigger.Trigger();
 			return true;
 }
-
-
-
-	   /*                        XHCustom v0.1                    
-	   <=========================<F-XHOMIE>============================>*/
