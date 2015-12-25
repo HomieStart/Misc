@@ -1,0 +1,58 @@
+	/*
+	<====================================================================> 
+	<======================= XHOMIE Code ================================> 
+	<====================================================================>
+	<=======    If you liked this v0.1, you can contact me,       =======>
+	<=======      I will be delighted to attend thanks to         =======>
+	<=======       suggestions or ideas for new script :)         =======>
+	<====================================================================>
+	<================    Tr.x.Homie@gmail.com    ========================>
+	<================ © 2015 By Freddy of XHomie ========================>
+	<====================================================================>
+	*/
+
+private static String msj = "No Players Alive";
+private static bool checkLast;
+private static bool checkPlayer;
+
+public void OnStartup(){
+	Game.RunCommand("XHomie-CustomServerMap: On");
+	Game.SetMapType(MapType.Custom);
+	checkLast = false;
+	if(AddT_Trigger(0,0,"CheckPlayerAlive","XH-404",true))
+		checkPlayer = true;
+}
+
+private void CheckPlayerAlive(){
+	if(!Game.IsGameOver){
+		if(Game.GetPlayers().Length <= 0){
+			Game.SetGameOver(msj);
+		}
+		else if(!checkLast && Game.GetPlayers().Length == 1){
+			IPlayer[] pl = Game.GetPlayers();
+			if(pl[0].IsBot)
+				Game.SetGameOver(msj);
+			checkLast = true;
+		}}
+	else
+			if(checkPlayer){
+				 Game.GetSingleObjectByCustomID("XH-3002").Remove();
+				 checkPlayer = false;
+			}
+}
+
+private bool AddT_Trigger(int interval, int count, String function, String id, bool active) {
+			IObjectTimerTrigger timerTrigger = (IObjectTimerTrigger) Game.CreateObject("TimerTrigger");
+			timerTrigger.SetIntervalTime(interval);
+			timerTrigger.SetRepeatCount(count);
+			timerTrigger.SetScriptMethod(function);
+			timerTrigger.CustomId = id;
+			if(active)
+				return	timerTrigger.Trigger();
+			return true;
+}
+
+
+
+	   /*                        XHCustom v0.1                    
+	   <=========================<F-XHOMIE>============================>*/
